@@ -1,7 +1,0 @@
-#!/bin/bash
-
-sed -i '/^_SOURCES =.*$/d' build-info.mk
-sed -i '/^_HEADERS =.*$/d' build-info.mk
-
-echo "_SOURCES =" `awk '/.c$/ {print $0;} /.cpp$/ {print;}' source.files | sed ':a;N;$!ba;s/\n/ /g'` >> build-info.mk
-echo "_HEADERS =" `awk '/.h$/ {print $0;} /.hpp$/ {print;}' source.files | sed ':a;N;$!ba;s/\n/ /g'` >> build-info.mk

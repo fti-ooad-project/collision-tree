@@ -1,9 +1,0 @@
-[submodule "submodules/libmedia"]
-	path = submodules/libmedia
-	url = https://github.com/nthend/libmedia.git
-[submodule "submodules/libgraphics"]
-	path = submodules/libgraphics
-	url = https://github.com/nthend/libgraphics.git
-[submodule "submodules/lib4u"]
-	path = submodules/lib4u
-	url = https://github.com/nthend/lib4u.git
