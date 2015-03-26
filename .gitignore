@@ -1,10 +1,5 @@
 *~
-*.config
-*.includes
-*.creator
 *.user
-*.files
-!source.files
 
 android/*
 !android/AndroidManifest.xml

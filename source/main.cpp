@@ -9,6 +9,9 @@
 //#define __TREE_NOEMPTY
 #include "tree.hpp"
 
+static const int TREE_SIZE = 256;
+static const int TREE_DEPTH = 6;
+
 struct State
 {
 	int done = 0;
@@ -154,8 +157,7 @@ void render(Media_App *app)
 int Media_main(Media_App *app)
 {
 	State state;
-	double size = 400.0;
-	Tree<int> tree = Tree<int>(TreeKey(nullvec2,size),7);
+	Tree<int> tree = Tree<int>(TreeKey(nullvec2,TREE_SIZE),TREE_DEPTH);
 	ContRand rand;
 	
 	state.tree = &tree;
@@ -166,7 +168,7 @@ int Media_main(Media_App *app)
 	{
 		double rad = 3.0*rand.get();
 		rad = rad*rad + 2.0;
-		tree.insert(TreeKey(2.0*size*(vec2(rand.get(),rand.get()) - vec2(0.5,0.5)),rad),i+1);
+		tree.insert(TreeKey(2.0*TREE_SIZE*(vec2(rand.get(),rand.get()) - vec2(0.5,0.5)),rad),i+1);
 	}
 	
 	app->data = static_cast<void*>(&state);
@@ -188,7 +190,7 @@ int Media_main(Media_App *app)
 			Media_waitForEvent(app);
 		}
 		Media_handleEvents(app);
-
+		
 		if(state.done)
 		{
 			break;
