@@ -3,6 +3,7 @@
 #include <functional>
 #include <utility>
 #include <list>
+#include <vector>
 
 #include <4u/la/vec.hpp>
 #include <4u/util/op.hpp>
@@ -409,19 +410,24 @@ public:
 	/* Replaces elements if their keys were changed */
 	void update()
 	{
-		__call_all(&root,[this](Branch *b)
+		std::vector<std::pair<Key,T>> temp;
+		__call_all(&root,[this,&temp](Branch *b)
 		{
-			b->elements.remove_if([this,b](const std::pair<Key,T> &p)
+			b->elements.remove_if([this,&temp,b](const std::pair<Key,T> &p)
 			{
 				if((b->offspring && !b->key.isSuitable(p.first)) || (!b->offspring && !b->key.isSuitableDown(p.first)))
 				{
-					insert(p.first,p.second);
+					temp.push_back(p);
 					return true;
 				}
 				return false;
 			});
 			__empty_branch(b);
 		});
+		for(std::pair<Key,T> &p : temp)
+		{
+			insert(p.first,p.second);
+		}
 	}
 	
 #ifdef __TREE_DEBUG
